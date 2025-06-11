@@ -25,4 +25,11 @@ Desenvolver uma aplicação simples utilizando **Python**, **Pony ORM**, **argpa
 ```bash
 python -m venv venv
 source venv/bin/activate        
-venv\Scripts\activate          
+venv\Scripts\activate 
+
+
+
+
+
+
+# END
