@@ -16,15 +16,20 @@ def listar_alunos():
 
 @db_session
 def add_professores_batch(arquivo):
-    from utils import ler_csv
-    df = ler_csv(arquivo)
-    for _, row in df.iterrows():
-        Professor(
-            nome=row['nome'],
-            email=row['email'],
-            nascimento=row.get('nascimento'),
-            especialidade=row.get('especialidade')
-        )
+   try:
+        from utils import ler_csv
+        df = ler_csv(arquivo)
+    
+        for _, row in df.iterrows():
+            Professor(
+                nome=row['nome'],
+                email=row['email'],
+                nascimento=row.get('nascimento'), 
+                especialidade=row.get('especialidade')
+            )
+            print(f"Professor {row['nome']} adicionado com sucesso.")
+    except Exception as e:
+            print(f"Erro ao adicionar o professor {row.get('nome', 'desconhecido')}: {e}")
 
 @db_session
 def add_disciplina(nome, creditos, ementa=None):
