@@ -18,5 +18,11 @@ def listar_alunos():
 def add_professores_batch(arquivo):
     from utils import ler_csv
     df = ler_csv(arquivo)
+
     for _, row in df.iterrows():
-        Professor(nome=row['nome'], email=row['email'])
+        Professor(
+            nome=row['nome'],
+            email=row['email'],
+            nascimento=row.get('nascimento'), 
+            especialidade=row.get('especialidade')
+        )

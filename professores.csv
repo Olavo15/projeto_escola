@@ -1,6 +1,6 @@
-nome,email
-Carlos Silva,carlos@escola.com
-Maria Oliveira,maria@escola.com
-João Pereira,joao.p@escola.com
-Fernanda Lima,fernanda.lima@escola.com
-Roberta Souza,roberta.souza@escola.com
+nome,email,nascimento,especialidade
+Carlos Silva,carlos@escola.com,1980-03-15,Matemática
+Maria Oliveira,maria@escola.com,1978-07-22,Língua Portuguesa
+João Pereira,joao.p@escola.com,1985-11-10,Física
+Fernanda Lima,fernanda.lima@escola.com,1990-02-08,História
+Roberta Souza,roberta.souza@escola.com,1983-09-30,Biologia
