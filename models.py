@@ -37,14 +37,14 @@ class TurmaAluno(db.Entity):
     turma = Required(Turma)
 
 class Nota(db.Entity):
-    aluno_id = Required(Aluno)
-    turma_id = Required(Turma)
-    Nota = Required(float)
+    aluno = Required(Aluno)
+    turma = Required(Turma)
+    nota = Required(int)
 
 class Frequencia(db.Entity):
     aluno = Required(Aluno)
     turma = Required(Turma)
-    data = Required(str)
+    data = Required(date)
     presente = Required(bool)
 
 # Geração do mapeamento

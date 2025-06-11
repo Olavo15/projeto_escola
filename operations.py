@@ -88,3 +88,82 @@ def add_alunos_batch(arquivo):
             print(f"Aluno {row['nome']} adicionado com sucesso.")
         except Exception as e:
             print(f"Erro ao adicionar aluno {row.get('nome')}: {e}")
+
+@db_session
+def add_disciplinas_batch(arquivo):
+    from utils import ler_csv
+    df = ler_csv(arquivo)
+
+    for _, row in df.iterrows():
+        try:
+            Disciplina(
+                nome=row['nome'],
+                creditos=int(row['creditos']),
+                ementa=row.get('ementa')
+            )
+            print(f"Disciplina {row['nome']} adicionada com sucesso.")
+        except Exception as e:
+            print(f"Erro ao adicionar disciplina {row.get('nome', 'desconhecida')}: {e}")
+
+@db_session
+def add_turmas_batch(arquivo):
+    from utils import ler_csv 
+    df = ler_csv(arquivo)
+
+    for _, row in df.iterrows():
+        disciplina = Disciplina.get(id=row['id_disciplina'])
+        professor = Professor.get(id=row['id_professor'])
+        if disciplina and professor:
+            Turma(nome=row['nome'], disciplina=disciplina, professor=professor)
+            print(f"Turma {row['nome']} adicionada com sucesso.")
+        else:
+            print(f"Erro: Disciplina ou professor não encontrado para turma {row['nome']}.")
+@db_session
+def add_frequencias_batch(arquivo):
+    from utils import ler_csv
+    df = ler_csv(arquivo)
+
+    for _, row in df.iterrows():
+        try:
+            data = datetime.strptime(row['data'], "%Y-%m-%d").date()
+            aluno = Aluno.get(id=row['id_aluno'])
+            turma = Turma.get(id=row['id_turma'])
+            if aluno and turma:
+                Frequencia(aluno=aluno, turma=turma, data=data, presente=row['presente'])
+                print(f"Frequência adicionada para {aluno.nome} na turma {turma.nome}.")
+            else:
+                print(f"Erro: Aluno ou turma não encontrado para frequência em {data}.")
+        except Exception as e:
+            print(f"Erro ao adicionar frequência: {e}")
+@db_session
+def add_notas_batch(arquivo):
+    from utils import ler_csv
+    df = ler_csv(arquivo)
+
+    for _, row in df.iterrows():
+        try: 
+            aluno = Aluno.get(id=row['id_aluno'])
+            turma = Turma.get(id=row['id_turma'])
+            if aluno and turma:
+                Nota(aluno=aluno, turma=turma, nota=row['nota'])
+                print(f"Nota adicionada para {aluno.nome} na turma {turma.nome}.")
+            else:
+                print(f"Erro: Aluno ou turma não encontrado para nota.")
+        except Exception as e:
+            print(f"Erro ao adicionar nota: {e}")
+@db_session
+def add_turmasAlunos_batch(arquivo):
+    from utils import ler_csv
+    df = ler_csv(arquivo)
+
+    for _, row in df.iterrows():
+        try:
+            aluno = Aluno.get(id=row['id_aluno'])
+            turma = Turma.get(id=row['id_turma'])
+            if aluno and turma:
+                TurmaAluno(aluno=aluno, turma=turma)
+                print(f"Aluno {aluno.nome} vinculado à turma {turma.nome} com sucesso.")
+            else:
+                print(f"Erro: Aluno ou turma não encontrado para vinculação.")
+        except Exception as e:
+            print(f"Erro ao vincular aluno à turma: {e}")

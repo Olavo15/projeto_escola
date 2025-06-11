@@ -46,8 +46,24 @@ p9.add_argument("--id-turma", type=int, required=True)
 p10 = subparsers.add_parser("add-frequencia")
 p10.add_argument("--id-aluno", type=int, required=True)
 p10.add_argument("--id-turma", type=int, required=True)
-p10.add_argument("--data", required=True) # Exemplo: 2025-06-10
+p10.add_argument("--data", required=True)
 p10.add_argument("--presente", type=bool, required=True)
+
+p11 = subparsers.add_parser("add-disciplinas-batch")
+p11.add_argument("--arquivo", required=True)
+
+p12 = subparsers.add_parser("add-turmas-batch")
+p12.add_argument("--arquivo", required=True)
+
+p13 = subparsers.add_parser("add-frequencias-batch")
+p13.add_argument("--arquivo", required=True)
+
+p14 = subparsers.add_parser("add-notas-batch")
+p14.add_argument("--arquivo", required=True)
+
+p15 = subparsers.add_parser("add-turmasAlunos-batch")
+p15.add_argument("--arquivo", required=True)
+
 
 args = parser.parse_args()
 
@@ -76,3 +92,13 @@ elif args.comando == "add-turma-aluno":
 elif args.comando == "add-frequencia":
     add_frequencia(args.id_aluno, args.id_turma, args.data, args.presente)
     print("Frequência adicionada com sucesso.")
+elif args.comando == "add-disciplinas-batch":
+    add_disciplinas_batch(args.arquivo)
+elif args.comando == "add-turmas-batch":
+    add_turmas_batch(args.arquivo)
+elif args.comando == "add-frequencias-batch":
+    add_frequencias_batch(args.arquivo)
+elif args.comando == "add-notas-batch":
+    add_notas_batch(args.arquivo)
+elif args.comando == "add-turmasAlunos-batch":
+    add_turmasAlunos_batch(args.arquivo)
