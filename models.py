@@ -11,9 +11,9 @@ class Professor(db.Entity):
 
 class Aluno(db.Entity):
     nome = Required(str)
-    email = Required(str, unique=True)
-    nascimento = Required(date)
-    matricula = Required(str, unique=True)
+    email = Required(str, unique=True)         
+    nascimento = Required(date)                
+    matricula = Required(str, unique=True)     
     turma_alunos = Set("TurmaAluno")
     notas = Set("Nota")
     frequencias = Set("Frequencia")
@@ -37,9 +37,9 @@ class TurmaAluno(db.Entity):
     turma = Required(Turma)
 
 class Nota(db.Entity):
-    aluno = Required(Aluno)
-    turma = Required(Turma)
-    valor = Required(float)
+    aluno_id = Required(Aluno)
+    turma_id = Required(Turma)
+    Nota = Required(float)
 
 class Frequencia(db.Entity):
     aluno = Required(Aluno)

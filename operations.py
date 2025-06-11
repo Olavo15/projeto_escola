@@ -1,4 +1,5 @@
 from pony.orm import db_session
+from datetime import datetime
 from models import *
 
 @db_session
@@ -16,7 +17,7 @@ def listar_alunos():
 
 @db_session
 def add_professores_batch(arquivo):
-   try:
+    try:
         from utils import ler_csv
         df = ler_csv(arquivo)
     
@@ -70,3 +71,20 @@ def add_frequencia(id_aluno, id_turma, data, presente):
         Frequencia(aluno=aluno, turma=turma, data=data, presente=presente)
     else:
         print("Aluno ou turma não encontrado.")
+@db_session
+def add_alunos_batch(arquivo):
+    from utils import ler_csv
+    df = ler_csv(arquivo)
+
+    for _, row in df.iterrows():
+        try:
+            nascimento = datetime.strptime(row['nascimento'], "%Y-%m-%d").date()
+            Aluno(
+                nome=row['nome'],
+                matricula=str(row['matricula']),
+                email=row['email'],
+                nascimento=nascimento
+            )
+            print(f"Aluno {row['nome']} adicionado com sucesso.")
+        except Exception as e:
+            print(f"Erro ao adicionar aluno {row.get('nome')}: {e}")
