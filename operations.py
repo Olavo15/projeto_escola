@@ -2,8 +2,8 @@ from pony.orm import db_session
 from models import *
 
 @db_session
-def add_professor(nome, email):
-    Professor(nome=nome, email=email)
+def add_professor(nome, email, nascimento, especialidade):
+    Professor(nome=nome, email=email, nascimento=nascimento, especialidade=especialidade)
 
 @db_session
 def add_aluno(nome, matricula):

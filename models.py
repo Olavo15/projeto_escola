@@ -1,9 +1,12 @@
 from pony.orm import Required, Optional, Set
+from datetime import date
 from db import db
 
 class Professor(db.Entity):
     nome = Required(str)
     email = Required(str, unique=True)
+    nascimento = Required(date)
+    especialidade = Required(str)
     turmas = Set("Turma")
 
 class Aluno(db.Entity):
