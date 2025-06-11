@@ -11,6 +11,8 @@ class Professor(db.Entity):
 
 class Aluno(db.Entity):
     nome = Required(str)
+    email = Required(str, unique=True)
+    nascimento = Required(date)
     matricula = Required(str, unique=True)
     turma_alunos = Set("TurmaAluno")
     notas = Set("Nota")

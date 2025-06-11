@@ -6,8 +6,8 @@ def add_professor(nome, email, nascimento, especialidade):
     Professor(nome=nome, email=email, nascimento=nascimento, especialidade=especialidade)
 
 @db_session
-def add_aluno(nome, matricula):
-    Aluno(nome=nome, matricula=matricula)
+def add_aluno(nome, matricula, email, nascimento):
+    Aluno(nome=nome, matricula=matricula, email=email, nascimento=nascimento)
 
 @db_session
 def listar_alunos():

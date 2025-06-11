@@ -13,6 +13,8 @@ p1.add_argument("--especialidade", required=False)
 p2 = subparsers.add_parser("add-aluno")
 p2.add_argument("--nome", required=True)
 p2.add_argument("--matricula", required=True)
+p2.add_argument("--email", required=True)
+p2.add_argument("--nascimento", required=True)
 
 p3 = subparsers.add_parser("add-professores-batch")
 p3.add_argument("--arquivo", required=True)
@@ -24,7 +26,7 @@ args = parser.parse_args()
 if args.comando == "add-professor":
     add_professor(args.nome, args.email, args.nascimento, args.especialidade)
 elif args.comando == "add-aluno":
-    add_aluno(args.nome, args.matricula)
+    add_aluno(args.nome, args.matricula, args.email, args.nascimento)
 elif args.comando == "add-professores-batch":
     add_professores_batch(args.arquivo)
 elif args.comando == "listar-alunos":
