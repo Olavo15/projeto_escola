@@ -21,6 +21,7 @@ p3.add_argument("--arquivo", required=True)
 
 p4 = subparsers.add_parser("listar-alunos")
 
+
 p5 = subparsers.add_parser("add-alunos-batch")
 p5.add_argument("--arquivo", required=True)
 
@@ -64,6 +65,12 @@ p14.add_argument("--arquivo", required=True)
 p15 = subparsers.add_parser("add-turmasAlunos-batch")
 p15.add_argument("--arquivo", required=True)
 
+p16 = subparsers.add_parser("listar-professores")
+
+p17 = subparsers.add_parser("criar-turma-interativo")
+
+p18 = subparsers.add_parser("selecionar-professor")
+
 
 args = parser.parse_args()
 
@@ -102,3 +109,43 @@ elif args.comando == "add-notas-batch":
     add_notas_batch(args.arquivo)
 elif args.comando == "add-turmasAlunos-batch":
     add_turmasAlunos_batch(args.arquivo)
+elif args.comando == "listar-professores":
+    listar_professores()
+elif args.comando == "criar-turma-interativo":
+    from operations import listar_professores_com_retorno, listar_disciplinas_com_retorno
+
+    print("\n=== Disciplinas Disponíveis ===")
+    disciplinas = listar_disciplinas_com_retorno()
+    for disc in disciplinas:
+        print(f"{disc.id}: {disc.nome} ({disc.creditos} créditos)")
+    
+    id_disciplina = int(input("Digite o ID da disciplina: "))
+
+    print("\n=== Professores Disponíveis ===")
+    professores = listar_professores_com_retorno()
+    for prof in professores:
+        print(f"{prof.id}: {prof.nome} ({prof.email})")
+
+    id_professor = int(input("Digite o ID do professor: "))
+    nome_turma = input("Digite o nome da turma: ")
+
+    add_turma(nome_turma, id_disciplina, id_professor)
+    print("Turma criada com sucesso.")
+elif args.comando == "selecionar-professor":
+    from operations import listar_professores_com_retorno
+    professores = listar_professores_com_retorno()
+    
+    print("\n=== Lista de Professores ===")
+    for prof in professores:
+        print(f"{prof.id}: {prof.nome} ({prof.email})")
+
+    try:
+        id_escolhido = int(input("\nDigite o ID do professor que deseja selecionar: "))
+        professor = next((p for p in professores if p.id == id_escolhido), None)
+        
+        if professor:
+            print(f"\n✅ Professor selecionado: {professor.nome} ({professor.email})")
+        else:
+            print("❌ ID inválido. Professor não encontrado.")
+    except ValueError:
+        print("❌ Entrada inválida. Digite um número.")

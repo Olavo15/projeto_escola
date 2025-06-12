@@ -14,6 +14,18 @@ def add_aluno(nome, matricula, email, nascimento):
 def listar_alunos():
     for aluno in Aluno.select():
         print(f"{aluno.id}: {aluno.nome} ({aluno.matricula})")
+@db_session
+def listar_professores():
+    for professor in Professor.select():
+        print(f"{professor.id}: {professor.nome} ({professor.email})")
+
+@db_session
+def listar_professores_com_retorno():
+    return list(Professor.select())
+
+@db_session
+def listar_disciplinas_com_retorno():
+    return list(Disciplina.select())
 
 @db_session
 def add_professores_batch(arquivo):
